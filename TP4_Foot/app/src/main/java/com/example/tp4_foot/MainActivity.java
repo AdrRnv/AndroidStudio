@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
 
-    private String[] equipes = {"Real","City","OL","PSG","Liverpool","Chelsea","Barcelona","New Castle"};
+    private String[] equipes = {"Real","City","OL","PSG","Liverpool","Chelseea","Barcelona","New Castle"};
     private ArrayList<String> listEquipes = new ArrayList<>(Arrays.asList(equipes));
     //private ArrayAdapter<String> adapter;
     private EquipeAdapter adapter;
