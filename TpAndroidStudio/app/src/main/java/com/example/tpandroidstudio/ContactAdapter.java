@@ -1,6 +1,8 @@
 package com.example.tpandroidstudio;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ public class ContactAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Contact> list;
+    Uri img;
 
     public ContactAdapter(Context context, ArrayList<Contact> list) {
         this.context = context;
@@ -49,10 +52,21 @@ public class ContactAdapter extends BaseAdapter {
 
         TextView tv = (TextView)layoutItem.findViewById(R.id.TextPrenom);
         ImageView iv = layoutItem.findViewById(R.id.imageView);
+        ImageView tv2 = layoutItem.findViewById(R.id.imageView2);
 
         Contact contact = list.get(position);
         String prenom = contact.getPrenom();
         tv.setText(prenom);
+
+        if(contact.getImg().equals("homme") || contact.getImg().equals("femme")) {
+            tv2.setImageResource(context.getResources().getIdentifier(contact.getImg(), "drawable", context.getPackageName()));
+        }else{
+            img = Uri.parse(contact.getImg());
+            tv2.setImageURI(img);
+        }
+
+        Log.d("img", String.valueOf(img));
+        Log.d("img2", String.valueOf(contact.getImg()));
 
         return layoutItem;
     }
