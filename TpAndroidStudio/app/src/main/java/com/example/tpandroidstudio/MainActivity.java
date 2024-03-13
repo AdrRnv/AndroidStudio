@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int CAPTURE_CODE = 1001;
     private static final int PERMISSION_CODE_FOLDER = 1111;
     private static final String FILE_NAME = "saveFile";
+
+    private static final String PHONE_REGEX = "^(0|(\\+|00)33)[1-9]([-. ]?[0-9]{2}){4}$";
+    private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_REGEX);
 
 
     @Override
@@ -141,25 +145,31 @@ public class MainActivity extends AppCompatActivity {
                     image=imageUri.toString();
                 }
 
-                if (prenom.getText().toString().isEmpty()
-                        || nom.getText().toString().isEmpty()
-                        || telephone.getText().toString().isEmpty()
-                        || email.getText().toString().isEmpty()
-                        || adresse.getText().toString().isEmpty()
-                        || codepostal.getText().toString().isEmpty()
-                        || editText.getText().toString().isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Compléter les champs", Toast.LENGTH_SHORT).show();
+                if (prenom.getText().toString().isEmpty()) {
+                    prenom.setError("Veuillez saisir le prénom");
+                } else if (nom.getText().toString().isEmpty()) {
+                    nom.setError("Veuillez saisir le nom");
+                } else if (telephone.getText().toString().isEmpty()) {
+                    telephone.setError("Veuillez saisir le numéro de téléphone");
+                } else if (!isValidPhoneNumber(telephone.getText().toString())) {
+                    telephone.setError("Numéro de téléphone invalide");
+                } else if (email.getText().toString().isEmpty()) {
+                    email.setError("Veuillez saisir l'email");
+                } else if (adresse.getText().toString().isEmpty()) {
+                    adresse.setError("Veuillez saisir l'adresse");
+                } else if (codepostal.getText().toString().isEmpty()) {
+                    codepostal.setError("Veuillez saisir le code postal");
+                } else if (editText.getText().toString().isEmpty()) {
+                    editText.setError("Veuillez saisir la date de naissance");
                 } else {
-                    Toast.makeText(MainActivity.this, "Super", Toast.LENGTH_SHORT).show();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Prénom : " + prenom.getText().toString() + "\n" + "Nom : " + nom.getText().toString() + "\n" + "Telephone  : " + telephone.getText().toString())
-                            .setTitle("Formulaire Complété");
-                    AlertDialog dialog = builder.create();
-                    dialog.show();;
+                    // Tous les champs sont remplis, et le numéro de téléphone est valide
+                    Toast.makeText(MainActivity.this, "Ajout du contact réussi", Toast.LENGTH_SHORT).show();
                     contact = new Contact(image.toString(), nom.getText().toString(), prenom.getText().toString(), rb.getText().toString(), email.getText().toString(), adresse.getText().toString(), telephone.getText().toString(), codepostal.getText().toString(), editText.getText().toString());
                     listContact.add(contact);
                     saveContacts(listContact);
                 }
+
+
             }
         });
         btnContact.setOnClickListener(new View.OnClickListener() {
@@ -296,6 +306,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return PHONE_PATTERN.matcher(phoneNumber).matches();
     }
 }
 
