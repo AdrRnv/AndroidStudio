@@ -22,6 +22,8 @@ import com.example.projetandroidapi.model.Result;
 
 import com.example.projetandroidapi.databinding.ActivityMainBinding;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements IResultDataManagerCallBack{
 
     private MainActivityController mainActivityController = new MainActivityController();
@@ -46,46 +48,18 @@ public class MainActivity extends AppCompatActivity implements IResultDataManage
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
-        getTime();
+        getAll();
     }
 
-    private void getTime() {
-        mainActivityController.getCinemaMarque(this);
+    private void getAll() {
+        mainActivityController.getAll(this);
     }
-
 
     @Override
     public void getTimeResponseSuccess(Cinema cinema) {
-        if (cinema != null && cinema.getResults() != null && !cinema.getResults().isEmpty()) {
-            Result firstResult = cinema.getResults().get(1); // Récupérer le premier résultat de la liste
-            if (firstResult.getMarque() != null) {
-                String marque = firstResult.getMarque().toString(); // Convertir la marque en chaîne de caractères
-                Log.d("Marque", marque);
-                t = findViewById(R.id.tv_hello);
-                t.setText(marque);
-            } else {
-                Log.d("Marque", "La marque est nulle");
-            }
-        } else {
-            Log.d("Marque", "Aucun résultat ou liste de résultats vide dans Cinema");
-        }
     }
-
 
     @Override
     public void getTimeResponseError(String message) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
-        alert.setTitle("Erreur").setMessage("une erreur est apparue lors de la recherche de données");
-        alert.setCancelable(false);
-        alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        alert.setIcon(R.drawable.ic_launcher_background);
-        alert.create().show();
     }
-
 }

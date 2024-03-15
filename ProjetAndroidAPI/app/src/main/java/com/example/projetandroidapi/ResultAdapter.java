@@ -43,18 +43,23 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
 
     public class ResultViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView nameTextView;
-        private TextView marqueTextView;
+        private TextView nameTextView, marqueTextView, depTextView, capacityTextView, textNameCom;
 
         public ResultViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.textView2);
-            marqueTextView = itemView.findViewById(R.id.TextPrenom);
+            nameTextView = itemView.findViewById(R.id.textName);
+            marqueTextView = itemView.findViewById(R.id.textMarque);
+            depTextView = itemView.findViewById(R.id.textDep);
+            capacityTextView = itemView.findViewById(R.id.textCapacity);
+            textNameCom = itemView.findViewById(R.id.textNameCom);
         }
 
         public void bind(Result result) {
             nameTextView.setText(result.getName());
             marqueTextView.setText(String.valueOf(result.getMarque()));
+            depTextView.setText(String.valueOf(result.getMetaCodeCom()));
+            capacityTextView.setText(String.valueOf(result.getCapacity()));
+            textNameCom.setText(String.valueOf(result.getMetaNameCom()));
         }
     }
 }

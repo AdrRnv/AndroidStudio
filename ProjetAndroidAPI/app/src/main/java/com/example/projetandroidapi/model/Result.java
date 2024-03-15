@@ -23,6 +23,12 @@ public class Result {
     @SerializedName("meta_code_dep")
     @Expose
     private String metaCodeDep;
+    @SerializedName("meta_name_com")
+    @Expose
+    private String metaNameCom;
+    @SerializedName("meta_code_com")
+    @Expose
+    private String metaCodeCom;
     @SerializedName("meta_geo_point")
     @Expose
     private MetaGeoPoint metaGeoPoint;
@@ -58,12 +64,20 @@ public class Result {
         return capacity;
     }
 
+    public String  getMetaNameCom() {
+        return metaNameCom;
+    }
+
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
     public String getMetaCodeDep() {
         return metaCodeDep;
+    }
+
+    public String getMetaCodeCom() {
+        return metaCodeCom;
     }
 
     public void setMetaCodeDep(String metaCodeDep) {

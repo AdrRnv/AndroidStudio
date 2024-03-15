@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ResultService {
     @GET("?group_by=marque&limit=20")
@@ -20,6 +21,10 @@ public interface ResultService {
 
     @GET("?group_by=name&limit=20")
     Call<Cinema> getName();
+
+    @GET("?limit=20")
+    Call<Cinema> getNextPage(@Query("offset") int offset);
+
 }
 
 /*

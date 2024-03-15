@@ -29,6 +29,7 @@ public class DashboardFragment extends Fragment implements IResultDataManagerCal
     Cinema cinema;
     private RecyclerView recyclerView;
     private ResultAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,21 +71,18 @@ public class DashboardFragment extends Fragment implements IResultDataManagerCal
     public void getTimeResponseSuccess(Cinema cinema) {
         if (cinema != null && cinema.getResults() != null && !cinema.getResults().isEmpty()) {
             List<Result> results = cinema.getResults();
-            for (Result result : results) {
-                Log.d("Result", "Name: " + result.getName());
-                Log.d("Result", "Marque: " + result.getMarque());
-                // Ajoutez d'autres informations à imprimer si nécessaire
-            }
             adapter = new ResultAdapter(results);
             recyclerView.setAdapter(adapter);
+            Log.d("Résultat", "Résultat Cinema");
         } else {
             Log.d("Marque", "Aucun résultat ou liste de résultats vide dans Cinema");
         }
     }
 
-
-
     @Override
     public void getTimeResponseError(String message) {
+        Log.d("Marque", "La marque est nulle");
     }
+
+
 }

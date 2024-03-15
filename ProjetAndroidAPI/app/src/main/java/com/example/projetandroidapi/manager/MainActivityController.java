@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.projetandroidapi.model.Cinema;
 import com.example.projetandroidapi.model.Result;
+import com.example.projetandroidapi.ui.dashboard.DashboardFragment;
 
 import java.io.IOException;
 
@@ -117,5 +118,8 @@ public class MainActivityController {
             }
         });
     }
+
+
+
 }
 
