@@ -13,7 +13,7 @@ public class Result {
     private String name;
     @SerializedName("marque")
     @Expose
-    private Object marque;
+    private String marque;
     @SerializedName("opening_hours")
     @Expose
     private Object openingHours;
@@ -44,11 +44,11 @@ public class Result {
         this.name = name;
     }
 
-    public Object getMarque() {
+    public String getMarque() {
         return marque;
     }
 
-    public void setMarque(Object marque) {
+    public void setMarque(String marque) {
         this.marque = marque;
     }
 

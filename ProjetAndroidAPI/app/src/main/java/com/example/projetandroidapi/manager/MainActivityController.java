@@ -46,6 +46,35 @@ public class MainActivityController {
 
     }
 
+    public void getCinemaName(IResultDataManagerCallBack callBack, String number) {
+        Call<Cinema> getCinemaName = apiManager.getResultService().getCinema(number);
+        getCinemaName.enqueue(new Callback<Cinema>() {
+            @Override
+            public void onResponse(Call<Cinema> call, Response<Cinema> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Cinema cinema = response.body();
+                    if (cinema.getResults() != null) {
+                        for (Result result : cinema.getResults()) {
+                            String cinemaName = result.getName();
+                        }
+                    } else {
+                        Log.e("onResponse", "No results found");
+                    }
+                    callBack.getTimeResponseSuccess(cinema);
+                } else {
+                    Log.e("onResponse", "Not successful: " + response.code());
+                    callBack.getTimeResponseError("Erreur: Le serveur a répondu avec le statut : " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cinema> call, Throwable t) {
+                Log.e("onFailure", "Erreur lors de la requête : " + t.getLocalizedMessage());
+                callBack.getTimeResponseError("Erreur lors de la requête : " + t.getLocalizedMessage());
+            }
+        });
+    }
+
     public void getCinemaDeparetment(IResultDataManagerCallBack callBack) {
         Call<Cinema> getCinemaDeparetment = apiManager.getResultService().getDep();
         getCinemaDeparetment.enqueue(new Callback<Cinema>() {

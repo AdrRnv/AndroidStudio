@@ -25,6 +25,9 @@ public interface ResultService {
     @GET("?limit=20")
     Call<Cinema> getNextPage(@Query("offset") int offset);
 
+    @GET("?limit=20")
+    Call<Cinema> getCinema(@Query("offset") String offset);
+
 }
 
 /*
